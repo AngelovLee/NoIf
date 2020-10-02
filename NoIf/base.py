@@ -24,7 +24,7 @@ class HandleBase(HandleBaseAbstract):
         self.__strategy_handles_mapping = {}
 
     def register(self, strategy, *register_args, **register_kwargs):
-        print(strategy, register_args, register_kwargs)
+        # print(strategy, register_args, register_kwargs)
         # print(args)
         # print(register_kwargs)
 
@@ -34,11 +34,7 @@ class HandleBase(HandleBaseAbstract):
                 self.__strategy_handles_mapping[strategy].update({func.__name__: func})
             else:
                 self.__strategy_handles_mapping.update({strategy: {func.__name__: func}})
-            """
-            中间件模块
-            :param func:
-            :return:
-            """
+
             @wraps(func)
             def wrap(self, *args, **kwargs):
                 """
@@ -48,8 +44,8 @@ class HandleBase(HandleBaseAbstract):
                 :param kwargs:
                 :return:
                 """
-                print('register_args, register_kwargs', register_args, register_kwargs)
-                print('args, kwargs', args, kwargs)
+                # print('register_args, register_kwargs', register_args, register_kwargs)
+                # print('args, kwargs', args, kwargs)
                 try:
                     # 管理端登录
                     return func(self, *args, **kwargs)
@@ -79,6 +75,7 @@ class HandleBase(HandleBaseAbstract):
     def __repr__(self):
         return f'{self.__strategy_handles_mapping}'
 
+
 handle_base = HandleBase()
-print('handle_base:', handle_base)
+# print('handle_base:', handle_base)
 
